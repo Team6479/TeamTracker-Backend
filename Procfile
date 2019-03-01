@@ -1,1 +1,1 @@
-web: gunicorn wsgi:app --bind=0.0.0.0:80
+web: gunicorn tracker:app --bind=0.0.0.0:80
