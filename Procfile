@@ -1,1 +1,1 @@
-web: gunicorn tracker:app --bind=localhost:80
+web: gunicorn tracker:app
