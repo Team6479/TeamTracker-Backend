@@ -1,4 +1,5 @@
 from flask import Flask
+from auth import *
 app = Flask(__name__)
 
 @app.route("/")
@@ -8,3 +9,7 @@ def home():
 @app.route("/ping")
 def ping():
     return "pong"
+
+@app.route("/<sess>")
+def checkSess(sess):
+    return check(sess)
