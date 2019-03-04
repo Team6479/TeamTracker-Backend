@@ -12,4 +12,8 @@ def ping():
 
 @app.route("/login")
 def login():
-    return check(sess)
+    # TODO: make this redirect instead of returning a value
+    if checkCred():
+        return genSess()
+    else:
+        return "false"

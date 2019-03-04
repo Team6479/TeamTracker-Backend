@@ -10,7 +10,7 @@ def check(sess):
 def checkCred(usr, pwd):
     return argon2.verify(pswd, getPwdHash(usr))
 
-def genSess(usr):
+def genSess():
     chars = string.ascii_letters + string.digits
     size = 16
     sess = ''.join(random.choice(chars) for i in range(size))
