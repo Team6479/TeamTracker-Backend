@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from auth import *
 app = Flask(__name__)
 
@@ -10,6 +10,6 @@ def home():
 def ping():
     return "pong"
 
-@app.route("/<sess>")
-def checkSess(sess):
+@app.route("/login")
+def login():
     return check(sess)
