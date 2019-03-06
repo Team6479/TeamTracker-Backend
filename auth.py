@@ -23,3 +23,15 @@ def genSess():
 
 def createUsr(usr, name, pwd):
     createRawUsr(usr, name, argon2.hash(pwd), time.time(), 0, usr)
+
+def grant(giver, getter, lvl):
+    table.update_item(
+        Key={
+            'usr': getter
+        },
+        UpdateExpression="set lvl = :l, lastLvlChange: :c",
+        ExpressionAttributeValues={
+            ':l': lvl,
+            ':c': upper
+        }
+    )
