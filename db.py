@@ -1,3 +1,18 @@
+import boto3
+import os
+
+aws = boto3.Session(
+    aws_access_key_id=os.environ['AWS_KEY_ID'],
+    aws_secret_access_key=os.environ['AWS_KEY_SECRET'],
+    region_name='us-east-1'
+)
+db = aws.resource('dynamodb')
+
+usrs = db.Table('6479-tracker-users')
+sess = db.Table('6479-tracker-sess')
+match = db.Table('6479-tracker-match')
+pit = db.Table('6479-tracker-pit')
+
 def getPwdHash(usr):
     # TODO: write code
     # Below is an Argon2 hash of "password"
