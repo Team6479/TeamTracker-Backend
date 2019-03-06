@@ -2,6 +2,7 @@ from db import *
 from passlib.hash import argon2
 import random
 import string
+import time
 
 def check(sess):
     # code
@@ -19,3 +20,6 @@ def genSess():
         sess = ''.join(random.choice(chars) for i in range(size))
     # TODO: actually create the session somewhere in the DB
     return sess
+
+def createUsr(usr, name, pwd):
+    createRawUsr(usr, name, argon2.hash(pwd), time.time(), 0, usr)

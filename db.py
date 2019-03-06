@@ -16,3 +16,13 @@ pit = db.Table('6479-tracker-pit')
 
 def getPwdHash(usr):
     return usrs.query(KeyConditionExpression=Key('usr').eq(usr))['Items'][0]['hash']
+
+def createRawUsr(usr, name, hash, created, lvl, lastLvlChange):
+    usrs.put_item(Item={
+        'usr': usr,
+        'name': name,
+        'hash': hash,
+        'created': created,
+        'lvl': lvl,
+        'lastLvlChange': lastLvlChange
+    })
