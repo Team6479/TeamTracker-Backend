@@ -1,6 +1,6 @@
 from db import *
 from passlib.hash import argon2
-from random import choice
+import random
 import string
 
 def check(sess):
@@ -8,7 +8,7 @@ def check(sess):
     return False
 
 def checkCred(usr, pwd):
-    return argon2.verify(pswd, getPwdHash(usr))
+    return argon2.verify(pwd, getPwdHash(usr))
 
 def genSess():
     chars = string.ascii_letters + string.digits
