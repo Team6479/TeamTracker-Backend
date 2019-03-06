@@ -7,9 +7,10 @@ verify_ssl = true
 
 [packages]
 gunicorn = "*"
-flask = "*"
 argon2-cffi = "*"
 passlib = "*"
+boto3 = "*"
+Flask = "*"
 
 [requires]
 python_version = "3.7"
