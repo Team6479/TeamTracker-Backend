@@ -23,6 +23,6 @@ def login():
 @app.route("/check")
 def check():
     if auth.check(request.values.get('sess', '\n')):
-        return auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n')))
+        return str(auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n'))))
     else:
         return "0"

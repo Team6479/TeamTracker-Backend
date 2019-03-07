@@ -5,7 +5,11 @@ import string
 import time
 
 def check(sess: str) -> bool:
-    # code
+    try:
+        db.getSessInfo(sess)
+        return True
+    except:
+        return False
     return False
 def getUsrFromSess(sess: str) -> str:
     return db.getSessInfo(sess)['usr']
