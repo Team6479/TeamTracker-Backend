@@ -14,10 +14,13 @@ sesss = db.Table('6479-tracker-sess')
 match = db.Table('6479-tracker-match')
 pit = db.Table('6479-tracker-pit')
 
-def getPwdHash(usr):
-    return usrs.query(KeyConditionExpression=Key('usr').eq(usr))['Items'][0]['hash']
+def getUsrInfo(usr: str):
+    return usrs.query(KeyConditionExpression=Key('usr').eq(usr))['Items'][0]
 
-def createRawUsr(usr, name, hash, created, lvl, lastLvlChange):
+def getPwdHash(usr: str) -> str:
+    return getUsrInfo(usr)['hash']
+
+def createRawUsr(usr: str, name: str, hash: str, created: float, lvl: int, lastLvlChange: str):
     usrs.put_item(Item={
         'usr': usr,
         'name': name,
@@ -25,4 +28,11 @@ def createRawUsr(usr, name, hash, created, lvl, lastLvlChange):
         'created': created,
         'lvl': lvl,
         'lastLvlChange': lastLvlChange
+    })
+def createRawSess(sess: str, usr: str, ip: str, time: float):
+    sesss.put_item(Item={
+        'sess': sess,
+        'usr': usr,
+        'ip': ip,
+        'time': time
     })

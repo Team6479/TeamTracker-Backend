@@ -4,27 +4,27 @@ import random
 import string
 import time
 
-def check(sess):
+def check(sess: str) -> bool:
     # code
     return False
 
-def checkCred(usr, pwd):
+def checkCred(usr: str, pwd: str) -> bool:
     return argon2.verify(pwd, getPwdHash(usr))
 
-def genSess():
+def genSess() -> str:
     chars = string.ascii_letters + string.digits
-    size = 16
-    sess = ''.join(random.choice(chars) for i in range(size))
+    size: int = 16
+    sess: str = ''.join(random.choice(chars) for i in range(size))
     # TODO: replace False with a check for whether or not the session ID is in use
     while(False):
         sess = ''.join(random.choice(chars) for i in range(size))
     # TODO: actually create the session somewhere in the DB
     return sess
 
-def createUsr(usr, name, pwd):
+def createUsr(usr: str, name: str, pwd: str):
     createRawUsr(usr, name, argon2.hash(pwd), time.time(), 0, usr)
 
-def grant(giver, getter, lvl):
+def grant(giver: str, getter: str, lvl: int):
     table.update_item(
         Key={
             'usr': getter
@@ -35,3 +35,6 @@ def grant(giver, getter, lvl):
             ':c': upper
         }
     )
+
+def createSess(usr: str, ip: str):
+    createRawSess(genSess(), usr, ip, time.time())
