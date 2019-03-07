@@ -8,6 +8,9 @@ def check(sess: str) -> bool:
     # code
     return False
 
+def getPwdHash(usr: str) -> str:
+    return getUsrInfo(usr)['hash']
+
 def checkCred(usr: str, pwd: str) -> bool:
     return argon2.verify(pwd, getPwdHash(usr))
 

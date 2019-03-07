@@ -1,5 +1,7 @@
 from flask import Flask, request, redirect
 from auth import *
+from match import *
+from pit import *
 from urls import *
 app = Flask(__name__)
 
