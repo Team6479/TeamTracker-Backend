@@ -31,3 +31,6 @@ def createSess(usr: str, ip: str) -> str:
     sess: str = genSess()
     db.createRawSess(sess, usr, ip, time.time())
     return sess
+
+def rmSess(sess: str):
+    db.rmSess(sess)

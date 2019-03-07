@@ -1,5 +1,6 @@
 import boto3
 import os
+from decimal import *
 from boto3.dynamodb.conditions import Key, Attr
 
 aws = boto3.Session(
@@ -22,7 +23,7 @@ def createRawUsr(usr: str, name: str, hash: str, created: float, lvl: int, lastL
         'usr': usr,
         'name': name,
         'hash': hash,
-        'created': created,
+        'created': Decimal(created),
         'lvl': lvl,
         'lastLvlChange': lastLvlChange
     })
@@ -44,5 +45,12 @@ def createRawSess(sess: str, usr: str, ip: str, time: float):
         'sess': sess,
         'usr': usr,
         'ip': ip,
-        'time': time
+        'time': Decimal(time)
     })
+
+def rmSess(sess: str):
+    sesss.delete_item(
+        Key={
+            'sess': sess
+        }
+    )
