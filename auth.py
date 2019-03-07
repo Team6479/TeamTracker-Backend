@@ -36,5 +36,7 @@ def grant(giver: str, getter: str, lvl: int):
         }
     )
 
-def createSess(usr: str, ip: str):
-    createRawSess(genSess(), usr, ip, time.time())
+def createSess(usr: str, ip: str) -> str:
+    sess: str = genSess()
+    createRawSess(sess, usr, ip, time.time())
+    return sess
