@@ -26,6 +26,19 @@ def createRawUsr(usr: str, name: str, hash: str, created: float, lvl: int, lastL
         'lvl': lvl,
         'lastLvlChange': lastLvlChange
     })
+
+def grant(giver: str, getter: str, lvl: int):
+    usrs.update_item(
+        Key={
+            'usr': getter
+        },
+        UpdateExpression="set lvl = :l, lastLvlChange: :c",
+        ExpressionAttributeValues={
+            ':l': lvl,
+            ':c': giver
+        }
+    )
+
 def createRawSess(sess: str, usr: str, ip: str, time: float):
     sesss.put_item(Item={
         'sess': sess,

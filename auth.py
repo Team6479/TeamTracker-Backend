@@ -1,4 +1,4 @@
-from db import *
+import db
 from passlib.hash import argon2
 import random
 import string
@@ -9,7 +9,7 @@ def check(sess: str) -> bool:
     return False
 
 def getPwdHash(usr: str) -> str:
-    return getUsrInfo(usr)['hash']
+    return db.getUsrInfo(usr)['hash']
 
 def checkCred(usr: str, pwd: str) -> bool:
     return argon2.verify(pwd, getPwdHash(usr))
@@ -25,21 +25,9 @@ def genSess() -> str:
     return sess
 
 def createUsr(usr: str, name: str, pwd: str):
-    createRawUsr(usr, name, argon2.hash(pwd), time.time(), 0, usr)
-
-def grant(giver: str, getter: str, lvl: int):
-    table.update_item(
-        Key={
-            'usr': getter
-        },
-        UpdateExpression="set lvl = :l, lastLvlChange: :c",
-        ExpressionAttributeValues={
-            ':l': lvl,
-            ':c': upper
-        }
-    )
+    db.createRawUsr(usr, name, argon2.hash(pwd), time.time(), 0, usr)
 
 def createSess(usr: str, ip: str) -> str:
     sess: str = genSess()
-    createRawSess(sess, usr, ip, time.time())
+    db.createRawSess(sess, usr, ip, time.time())
     return sess
