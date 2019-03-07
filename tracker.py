@@ -19,3 +19,10 @@ def login():
         return redirect(urls['login']['success'].replace('<SESS>', auth.createSess(request.values.get('usr', '\n'), request.remote_addr)), code=302)
     else:
         return redirect(urls['login']['fail'], code=302)
+
+@app.route("/check")
+def check():
+    if auth.check(request.values.get('sess', '\n')):
+        return auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n')))
+    else:
+        return "0"

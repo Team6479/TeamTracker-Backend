@@ -18,6 +18,9 @@ pit = db.Table('6479-tracker-pit')
 def getUsrInfo(usr: str):
     return usrs.query(KeyConditionExpression=Key('usr').eq(usr))['Items'][0]
 
+def getSessInfo(sess: str) -> sess:
+    return sesss.query(KeyConditionExpression=Key('sess').eq(sess))['Items'][0]
+
 def createRawUsr(usr: str, name: str, hash: str, created: float, lvl: int, lastLvlChange: str):
     usrs.put_item(Item={
         'usr': usr,

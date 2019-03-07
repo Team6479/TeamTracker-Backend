@@ -7,9 +7,13 @@ import time
 def check(sess: str) -> bool:
     # code
     return False
+def getUsrFromSess(sess: str) -> str:
+    return db.getSessInfo(sess)['usr']
 
 def getPwdHash(usr: str) -> str:
     return db.getUsrInfo(usr)['hash']
+def getLvl(usr: str) -> int:
+    return db.getUsrInfo(usr)['lvl']
 
 def checkCred(usr: str, pwd: str) -> bool:
     return argon2.verify(pwd, getPwdHash(usr))
