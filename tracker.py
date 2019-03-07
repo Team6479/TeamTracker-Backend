@@ -20,7 +20,14 @@ def login():
     else:
         return redirect(urls['login']['fail'], code=302)
 
-@app.route("/check")
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    if auth.check(request.values.get('sess', '\n')):
+        auth.rmSess(request.values.get('sess', '\n'))
+        return redirect(urls['login']['page'], code=302)
+    else:
+        return redirect(urls['login']['fail'], code=302)
+@app.route("/check", methods=["GET", "POST"])
 def check():
     if auth.check(request.values.get('sess', '\n')):
         return str(auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n'))))
