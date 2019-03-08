@@ -42,3 +42,6 @@ def createSess(usr: str, ip: str) -> str:
 
 def rmSess(sess: str):
     db.rmSess(sess)
+
+def grant(giver: str, getter: str, lvl: int):
+    db.grant(giver, getter, lvl)
