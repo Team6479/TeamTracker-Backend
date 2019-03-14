@@ -16,7 +16,7 @@ def ping():
 
 @app.route("/user/login", methods=["GET", "POST"])
 def login():
-    if not util.reqIsClean(request.values):
+    if not util.reqIsCleanPwd(request.values, request.values.get('pass', '\n')):
         return redirect(urls['input']['illegal']['chars'], code=302)
     if auth.checkCred(request.values.get('usr', '\n'), request.values.get('pass', '\n')):
         return redirect(urls['login']['success'].replace('<SESS>', auth.createSess(request.values.get('usr', '\n'), request.remote_addr)), code=302)
@@ -58,7 +58,7 @@ def grant():
 
 @app.route("/user/create", methods=["GET", "POST"])
 def create():
-    if not util.reqIsClean(request.values):
+    if not util.reqIsCleanPwd(request.values, request.values.get('pass', '\n')):
         return redirect(urls['input']['illegal']['chars'], code=302)
     if request.values.get('sess', '\n') == '\n':
         if request.values.get('usr', '\n') == '\n':
