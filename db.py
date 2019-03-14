@@ -34,9 +34,10 @@ def createRawUsr(usr: str, name: str, hash: str, created: float, lvl: int, lastL
 def grant(giver: str, getter: str, lvl: int):
     usrs.update_item(
         Key={
-            'usr': getter
+            'usr': getter,
+            'name': getUsrInfo(getter)['name']
         },
-        UpdateExpression="set lvl = :l, lastLvlChange: :c",
+        UpdateExpression="set lvl = :l, lastLvlChange = :c",
         ExpressionAttributeValues={
             ':l': lvl,
             ':c': giver
