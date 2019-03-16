@@ -77,14 +77,20 @@ def user_create(): # redir
 @app.route("/user", methods=["GET", "POST"]) # Stack Overflow says this works
 @app.route("/user/info", methods=["GET", "POST"]) # /user acts as an alias for /user/info
 def user_info(): # json
-    if request.values.get('sess', '\n') == '\n': # the user must be logged in to view user info, but they don't necessarily need any permissions
+    if request.values.get('sess', '\n') != '\n': # the user must be logged in to view user info, but they don't necessarily need any permissions
         if request.values.get('usr', '\n') == '\n': # if no user is supplied, get the info from the user who is logged in according to the session
             usr = auth.getUsrFromSess(request.values.get('sess', '\n'))
         else: # if the caller supplied a usr param, get that user's info
             usr = request.values.get('usr', '\n')
     else: # if the user isn't logged in, get the info for the user invalid
         usr = 'invalid'
-    return json.dumps(auth.getUsrInfo(usr))
+    try:
+        info = auth.getUsrInfo(usr)
+    except:
+        info = auth.getUsrInfo('invalid')
+    info['created'] = float(info['created'])
+    info['lvl'] = int(info['lvl'])
+    return json.dumps(info)
 
 # Accessing data (these should use everything except for db.py)
 # TODO: write code
