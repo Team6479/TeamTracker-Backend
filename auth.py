@@ -22,7 +22,10 @@ def getLvl(usr: str) -> int:
     return getUsrInfo(usr)['lvl']
 
 def checkCred(usr: str, pwd: str) -> bool:
-    return argon2.verify(pwd, getPwdHash(usr))
+    res = argon2.verify(pwd, getPwdHash(usr))
+    if not res:
+        time.sleep(0.5)
+    return res
 
 def genSess() -> str:
     chars = string.ascii_letters + string.digits
