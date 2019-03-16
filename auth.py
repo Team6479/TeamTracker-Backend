@@ -14,10 +14,12 @@ def check(sess: str) -> bool:
 def getUsrFromSess(sess: str) -> str:
     return db.getSessInfo(sess)['usr']
 
+def getUsrInfo(usr: str):
+    return db.getUsrInfo(usr)
 def getPwdHash(usr: str) -> str:
-    return db.getUsrInfo(usr)['hash']
+    return getUsrInfo(usr)['hash']
 def getLvl(usr: str) -> int:
-    return db.getUsrInfo(usr)['lvl']
+    return getUsrInfo(usr)['lvl']
 
 def checkCred(usr: str, pwd: str) -> bool:
     return argon2.verify(pwd, getPwdHash(usr))
