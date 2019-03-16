@@ -53,7 +53,7 @@ def user_grant(): # redir
         return redirect(urls['input']['illegal']['chars'], code=302)
     if auth.check(request.values.get('sess', '\n')):
         lvl: int = auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n')))
-        if (request.values.get('lvl', 0, int) < lvl or request.values.get('lvl', 0, int) == 0):
+        if (request.values.get('lvl', 0, int) < lvl or request.values.get('lvl', 0, int) == 0) and request.values.get('lvl', 0, int) >= auth.getLvl(request.values.get('usr', '\n')):
             auth.grant(auth.getUsrFromSess(request.values.get('sess', '\n')), request.values.get('usr', '\n'), request.values.get('lvl', 0, int))
             return redirect(urls['login']['granted'], code=302)
         else:
