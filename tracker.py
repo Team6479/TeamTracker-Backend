@@ -95,26 +95,31 @@ def user_info(): # json
 # Accessing data (these should use everything except for db.py)
 @app.route('/match/add')
 def match_add():
-    match.add(
-        request.values.get('team', 0, int),
-        request.values.get('habstart', 1, int),
-        request.values.get('ac', 0, int),
-        request.values.get('ah', 0, int),
-        request.values.get('tha', 0, int),
-        request.values.get('thd', 0, int),
-        request.values.get('thl', 0, int),
-        request.values.get('thm', 0, int),
-        request.values.get('thh', 0, int),
-        request.values.get('tca', 0, int),
-        request.values.get('tcd', 0, int),
-        request.values.get('tcl', 0, int),
-        request.values.get('tcm', 0, int),
-        request.values.get('tch', 0, int),
-        request.values.get('habend', 0, int),
-        request.values.get('ct', 0, int),
-        request.values.get('c', ' ', str)
-    )
-    return redirect(urls['scouting']['match']['success'], code=302)
+    if not auth.check(request.values.get('sess', '\n')):
+        return redirect(urls['login']['invalid'], code=302)
+    elif auth.getLvl(auth.getUsrFromSess(request.values.get('sess', '\n'))) < 1:
+        return redirect(urls['login']['insuf'], code=302)
+    else:
+        match.add(
+            request.values.get('team', 0, int),
+            request.values.get('habstart', 1, int),
+            request.values.get('ac', 0, int),
+            request.values.get('ah', 0, int),
+            request.values.get('tha', 0, int),
+            request.values.get('thd', 0, int),
+            request.values.get('thl', 0, int),
+            request.values.get('thm', 0, int),
+            request.values.get('thh', 0, int),
+            request.values.get('tca', 0, int),
+            request.values.get('tcd', 0, int),
+            request.values.get('tcl', 0, int),
+            request.values.get('tcm', 0, int),
+            request.values.get('tch', 0, int),
+            request.values.get('habend', 0, int),
+            request.values.get('ct', 0, int),
+            request.values.get('c', ' ', str),
+        )
+        return redirect(urls['scouting']['match']['success'], code=302)
 
 # Writing data (these should use everything except for db.py)
 # TODO: write code
