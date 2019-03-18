@@ -4,10 +4,16 @@ import random
 import string
 import time
 
-def check(sess: str) -> bool:
+def getIpFromSess(sess: str) -> str:
+    return db.getSessInfo(sess)['ip']
+
+def check(sess: str, ip: str = '\n') -> bool:
     try:
         db.getSessInfo(sess)
-        return True
+        if ip == '\n':
+            return True
+        else:
+            return ip == getIpFromSess(sess)
     except:
         return False
     return False
