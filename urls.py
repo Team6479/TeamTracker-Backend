@@ -17,5 +17,10 @@ urls = {
             'chars':   BASE_URL + '/err?msg=%23ERROR%0AIllegal%20input.%20Alphanumeric%20chacters%20only.',
             'absent':  BASE_URL + '/err?msg=%23ERROR%0ANot%20all%20required%20parameters%20present.%20This%20is%20probably%20Frontend%27s%20fault.'
         }
+    },
+    'scouting': {
+        'match': {
+            'success': BASE_URL + '/match?msg=success'
+        }
     }
 }

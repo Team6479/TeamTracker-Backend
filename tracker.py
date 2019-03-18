@@ -114,6 +114,7 @@ def match_add():
         request.values.get('ct', 0, int),
         request.values.get('c', ' ', str)
     )
+    return redirect(urls['scouting']['match']['success'], code=302)
 
 # Writing data (these should use everything except for db.py)
 # TODO: write code
